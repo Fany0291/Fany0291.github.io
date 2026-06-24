@@ -1,0 +1,2366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fany Gobin — Design Graphique</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <style>
+
+    /* =====================
+       RESET & BASE
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #00001E;
+      --white: #FFFFFF;
+      --bg: #FFFFFF;
+      --gray-light: #F4F3EF;
+      --gray-mid: #E8E8E6;
+      --gray-dark: #E0E0DE;
+      --text: #00001E;
+      --text-muted: rgba(0, 0, 30, 0.5);
+      --text-faint: rgba(0, 0, 30, 0.3);
+      --border: rgba(0, 0, 30, 0.15);
+      --border-strong: rgba(0, 0, 30, 0.2);
+      --font-serif: 'DM Serif Display', Georgia, serif;
+      --font-sans: 'DM Sans', system-ui, sans-serif;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-pill: 99px;
+      --px: 48px;
+      --transition: 0.22s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: var(--font-sans); }
+    img { display: block; max-width: 100%; }
+
+    /* =====================
+       NAV
+    ===================== */
+    .nav {
+      display: flex;
+      align-items: center;
+      padding: 16px var(--px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+
+    .nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: var(--px);
+      right: var(--px);
+      height: 1px;
+      background: var(--navy);
+      opacity: 0.15;
+    }
+
+    .nav-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      margin-right: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Zone logo — remplace l'image ci-dessous par ton logo */
+    .nav-logo img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .nav-logo-placeholder {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--gray-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      opacity: 0.4;
+      font-weight: 300;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 8px;
+      margin: 0 auto;
+    }
+
+    .nav-link {
+      font-size: 13px;
+      font-weight: 300;
+      padding: 5px 20px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      color: var(--text);
+      transition: all var(--transition);
+      cursor: pointer;
+      background: none;
+    }
+
+    .nav-link:hover { opacity: 0.6; }
+    .nav-link.active { border-color: var(--navy); }
+
+    .nav-right {
+      width: 40px;
+      flex-shrink: 0;
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* Toggle FR/EN */
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: #f0f0ee;
+      border-radius: 99px;
+      padding: 3px;
+      gap: 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lang-btn {
+      font-size: 11px;
+      font-weight: 400;
+      padding: 3px 10px;
+      border-radius: 99px;
+      color: var(--text);
+      transition: all 0.2s;
+      opacity: 0.4;
+    }
+
+    .lang-btn.active {
+      background: var(--navy);
+      color: #fff;
+      opacity: 1;
+    }
+
+    /* =====================
+       PAGES
+    ===================== */
+    .page { display: none; animation: fadeIn 0.3s ease; }
+    .page.visible { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* =====================
+       DIVIDER
+    ===================== */
+    .divider {
+      height: 1px;
+      background: var(--navy);
+      opacity: 0.08;
+      margin: 0 var(--px);
+    }
+
+    /* =====================
+       HOME
+    ===================== */
+    .hero {
+      padding: 72px var(--px) 56px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: 54px;
+      line-height: 1.08;
+      font-weight: 400;
+      color: #000;
+      max-width: 640px;
+    }
+
+    .hero-title em { font-style: italic; }
+
+    .hero-bio {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.75;
+      opacity: 0.6;
+      max-width: 460px;
+      margin-top: 8px;
+    }
+
+    .hero-cta {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 10px 24px;
+      border-radius: var(--radius-pill);
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      transition: opacity var(--transition);
+      width: fit-content;
+    }
+
+    .hero-cta:hover { opacity: 0.8; }
+
+    /* Grille home */
+    .projects-section { padding: 48px var(--px) 72px; }
+
+    .projects-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 28px;
+    }
+
+    .projects-label {
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.4;
+    }
+
+    .see-all {
+      font-size: 13px;
+      font-weight: 300;
+      opacity: 0.45;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+      transition: opacity var(--transition);
+    }
+
+    .see-all:hover { opacity: 0.8; }
+
+    .grid-home {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* =====================
+       CARDS
+    ===================== */
+    .card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--gray-light);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .card:hover { transform: translateY(-2px); opacity: 0.9; }
+    .card.tall { grid-row: span 2; }
+
+    .card-img {
+      flex: 1;
+      min-height: 130px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-mid);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card.tall .card-img { min-height: 300px; }
+
+    .card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .card:hover .card-img img { filter: grayscale(0%); }
+
+    .card-letter {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      opacity: 0.1;
+      font-style: italic;
+      user-select: none;
+    }
+
+    .card-info { padding: 14px 18px 16px; }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 4px;
+    }
+
+    .card-name { font-size: 14px; font-weight: 400; line-height: 1.3; }
+
+    /* Badge "En cours" */
+    .badge {
+      display: inline-block;
+      font-size: 9px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--navy);
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    /* =====================
+       PAGE PROJETS
+    ===================== */
+    .page-header { padding: 52px var(--px) 44px; }
+
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 46px;
+      font-weight: 400;
+      color: #000;
+    }
+
+    .page-title em { font-style: italic; }
+    .page-count { font-size: 12px; font-weight: 300; opacity: 0.3; margin-top: 6px; }
+
+    .proj-section { padding: 40px var(--px) 0; }
+    .proj-section:last-of-type { padding-bottom: 72px; }
+
+    .proj-section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--navy);
+      margin-bottom: 20px;
+      opacity: 0.9;
+    }
+
+    .proj-section-title { font-size: 16px; font-weight: 300; }
+    .proj-section-count { font-size: 11px; opacity: 0.3; }
+
+    .proj-grid { display: grid; gap: 12px; }
+    .g3 { grid-template-columns: repeat(3, 1fr); }
+    .g4 { grid-template-columns: repeat(4, 1fr); }
+    .g5 { grid-template-columns: repeat(5, 1fr); }
+    .g6 { grid-template-columns: repeat(3, 1fr); }
+
+    .card-sm {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--gray-light);
+      cursor: pointer;
+      transition: transform var(--transition), opacity var(--transition);
+    }
+
+    .card-sm:hover { transform: translateY(-2px); opacity: 0.85; }
+
+    .card-sm-img {
+      height: 120px;
+      background: var(--gray-mid);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-sm-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+      transition: filter 0.4s ease;
+    }
+
+    .card-sm:hover .card-sm-img img { filter: grayscale(0%); }
+
+    .card-sm-letter {
+      font-family: var(--font-serif);
+      font-size: 44px;
+      opacity: 0.1;
+      font-style: italic;
+    }
+
+    .card-sm-info { padding: 10px 14px 12px; }
+    .card-sm-tag { font-size: 9px; opacity: 0.35; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 3px; }
+    .card-sm-name { font-size: 12px; font-weight: 400; line-height: 1.3; }
+
+    .sec-divider {
+      height: 1px;
+      background: var(--navy);
+      opacity: 0.06;
+      margin: 40px var(--px) 0;
+    }
+
+    /* =====================
+       PAGE À PROPOS
+    ===================== */
+    .apropos-hero {
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 56px;
+      padding: 56px var(--px) 48px;
+      align-items: start;
+    }
+
+    .apropos-title {
+      font-family: var(--font-serif);
+      font-size: 46px;
+      font-weight: 400;
+      color: #000;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .apropos-title em { font-style: italic; }
+
+    .apropos-bio {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0.65;
+    }
+
+    .apropos-bio p + p { margin-top: 14px; }
+
+    .apropos-photo {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      background: var(--gray-mid);
+    }
+
+    /* Remplace par : <img src="ta-photo.jpg" alt="Fany Gobin" /> */
+    .apropos-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(100%);
+    }
+
+    .apropos-photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      opacity: 0.3;
+      text-align: center;
+      padding: 16px;
+    }
+
+    .apropos-bottom {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 44px;
+      padding: 44px var(--px) 72px;
+      align-items: start;
+    }
+
+    .apropos-section-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      font-style: italic;
+      color: #000;
+      margin-bottom: 20px;
+    }
+
+    /* Formations */
+    .formation { margin-bottom: 16px; }
+    .formation-name { font-size: 13px; font-weight: 400; line-height: 1.4; }
+    .formation-sub { font-size: 12px; font-weight: 300; opacity: 0.45; margin-top: 2px; line-height: 1.4; }
+    .formation-year { font-size: 11px; font-weight: 300; opacity: 0.28; margin-top: 2px; letter-spacing: 0.04em; }
+
+    /* Expériences */
+    .xp { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(0,0,30,0.07); }
+    .xp:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .xp-top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+    .xp-name { font-size: 13px; font-weight: 400; line-height: 1.3; }
+    .xp-date { font-size: 11px; font-weight: 300; opacity: 0.28; white-space: nowrap; flex-shrink: 0; }
+    .xp-sub { font-size: 12px; font-weight: 300; opacity: 0.45; margin-top: 3px; }
+
+    .apropos-sub-title {
+      font-family: var(--font-serif);
+      font-size: 20px;
+      font-weight: 400;
+      font-style: italic;
+      color: #000;
+      margin-top: 28px;
+      margin-bottom: 14px;
+    }
+
+    .soft-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+    .soft-list li { font-size: 13px; font-weight: 300; display: flex; align-items: center; gap: 10px; }
+    .soft-list li::before { content: '—'; opacity: 0.2; font-size: 11px; flex-shrink: 0; }
+
+    /* Logos logiciels */
+    .skills-logos { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+
+    .skill-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 500;
+      color: #fff;
+      /* Remplace par les vraies icônes SVG Adobe */
+    }
+
+    .skill-ai  { background: #FF7C00; }
+    .skill-id  { background: #FF3366; }
+    .skill-ps  { background: #001D34; color: #31A8FF; }
+    .skill-fig { background: #1E1E1E; }
+    .skill-ae  { background: #00005B; color: #9999FF; }
+    .skill-dn  { background: #470137; color: #FF61F6; }
+    .skill-xd  { background: #2E001F; color: #FF61F6; }
+
+    .skills-text {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.75;
+      opacity: 0.65;
+    }
+
+    .skills-text + .skills-text { margin-top: 12px; }
+    .skills-text b { font-weight: 700; opacity: 1; color: var(--navy); }
+
+    /* =====================
+       PAGE CONTACT
+    ===================== */
+    .contact-wrap {
+      padding: 64px var(--px) 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 56px;
+    }
+
+    .contact-title {
+      font-family: var(--font-serif);
+      font-size: 50px;
+      font-weight: 400;
+      color: #000;
+      line-height: 1.1;
+    }
+
+    .contact-title em { font-style: italic; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    /* Formulaire */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    .form-field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+
+    .form-label {
+      font-size: 10px;
+      font-weight: 300;
+      opacity: 0.35;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .form-input, .form-textarea {
+      background: none;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,30,0.18);
+      padding: 8px 0;
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--text);
+      font-family: var(--font-sans);
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .form-input:focus, .form-textarea:focus {
+      border-bottom-color: var(--navy);
+    }
+
+    .form-input::placeholder, .form-textarea::placeholder { opacity: 0.3; }
+
+    .form-textarea { resize: none; min-height: 90px; }
+
+    .form-submit {
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      padding: 10px 26px;
+      border-radius: var(--radius-pill);
+      background: var(--navy);
+      color: #fff;
+      border: none;
+      transition: opacity var(--transition);
+    }
+
+    .form-submit:hover { opacity: 0.8; }
+
+    /* Infos contact */
+    .contact-infos { display: flex; flex-direction: column; gap: 22px; padding-top: 4px; }
+
+    .info-label {
+      font-size: 10px;
+      font-weight: 300;
+      opacity: 0.35;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 4px;
+    }
+
+    .info-value { font-size: 14px; font-weight: 300; }
+
+    .info-link {
+      font-size: 14px;
+      font-weight: 300;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: opacity var(--transition);
+    }
+
+    .info-link:hover { opacity: 0.6; }
+
+    /* Footer contact */
+    .contact-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 var(--px) 36px;
+    }
+
+    .socials { display: flex; gap: 10px; }
+
+    .social-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity var(--transition);
+    }
+
+    .social-btn:hover { opacity: 0.7; }
+    .social-btn svg { width: 16px; height: 16px; fill: #fff; }
+
+    .copyright { font-size: 11px; font-weight: 300; opacity: 0.25; }
+
+    /* =====================
+       PAGE DÉTAIL PROJET
+    ===================== */
+    .detail-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      padding: 52px var(--px) 44px;
+      align-items: end;
+      border-bottom: 1px solid rgba(0,0,30,0.1);
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 300;
+      opacity: 0.4;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: opacity var(--transition);
+    }
+
+    .back-link:hover { opacity: 0.7; }
+
+    .detail-cat {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 10px;
+    }
+
+    .detail-title {
+      font-family: var(--font-serif);
+      font-size: 46px;
+      font-weight: 400;
+      color: #000;
+      line-height: 1.05;
+    }
+
+    .detail-title em { font-style: italic; }
+
+    .detail-year {
+      font-size: 11px;
+      font-weight: 300;
+      opacity: 0.28;
+      margin-top: 12px;
+    }
+
+    .detail-meta { display: flex; flex-direction: column; gap: 16px; }
+
+    .meta-label {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      margin-bottom: 3px;
+    }
+
+    .meta-value { font-size: 13px; font-weight: 300; line-height: 1.5; }
+
+    .detail-main-visual {
+      margin: 36px var(--px) 32px;
+      height: 320px;
+      background: var(--gray-mid);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .detail-main-visual img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-visual-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      opacity: 0.3;
+    }
+
+    .detail-body { padding: 0 var(--px) 72px; }
+
+    .detail-section-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 400;
+      font-style: italic;
+      color: #000;
+      margin-bottom: 14px;
+    }
+
+    .detail-text {
+      font-size: 13.5px;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0.65;
+      max-width: 660px;
+      margin-bottom: 40px;
+    }
+
+    .detail-divider {
+      height: 1px;
+      background: var(--navy);
+      opacity: 0.07;
+      margin: 36px 0 40px;
+    }
+
+    /* Grille visuels détail */
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .detail-img {
+      height: 180px;
+      background: var(--gray-light);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .detail-img.tall {
+      grid-row: span 2;
+      height: auto;
+      min-height: 374px;
+    }
+
+    .detail-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+
+    /* =====================
+       LIGHTBOX
+    ===================== */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.97);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .lightbox-overlay.open {
+      display: flex;
+    }
+
+    .lightbox-overlay img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 28px;
+      color: #00001E;
+      cursor: pointer;
+      opacity: 0.7;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      line-height: 1;
+      transition: opacity 0.2s;
+    }
+
+    .lightbox-close:hover { opacity: 1; }
+
+    .detail-img {
+      cursor: zoom-in;
+    }
+
+    /* Grille mockups avec ratios */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 16px;
+      margin-bottom: 32px;
+    }
+
+    .mockup-item {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: zoom-in;
+      background: var(--gray-light);
+    }
+
+    .mockup-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =====================
+       NAV
+  ===================== -->
+  <nav class="nav">
+    <div class="nav-logo">
+<img src="images/logo-prototype.png" alt="Fany Gobin" style="width:40px;height:40px;object-fit:contain;" />
+    </div>
+
+    <div class="nav-links">
+      <button class="nav-link active" id="nav-home"    onclick="show('home')">Home</button>
+      <button class="nav-link"        id="nav-projets" onclick="show('projets')">Projets</button>
+      <button class="nav-link"        id="nav-apropos" onclick="show('apropos')">À propos</button>
+      <button class="nav-link"        id="nav-contact" onclick="show('contact')">Contact</button>
+    </div>
+
+    <div class="nav-right">
+      <div class="lang-toggle" onclick="toggleLang()">
+        <span class="lang-btn active" id="btn-fr">FR</span>
+        <span class="lang-btn" id="btn-en">EN</span>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- =====================
+       HOME
+  ===================== -->
+  <div class="page visible" id="page-home">
+
+    <section class="hero">
+      <span class="hero-label">Bienvenue dans le portfolio de Fany !</span>
+      <h1 class="hero-title">
+        Design graphique,<br>
+        <em>digital & print</em>
+      </h1>
+      <p class="hero-bio">
+        Designer graphique basée à Lille, diplômée du Bachelor Design Graphique et Imprimé à Lille.
+        Je crée des identités visuelles et des expériences graphiques qui ont quelque chose à raconter.
+      </p>
+      <button class="hero-cta" onclick="scrollToProjects()">Voir les projets →</button>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="projects-section" id="selection">
+      <div class="projects-header">
+        <span class="projects-label">Sélection de projets</span>
+        <span class="see-all" onclick="show('projets')">Tous les projets →</span>
+      </div>
+
+      <div class="grid-home">
+
+        <!-- Hors Champ — grande card -->
+        <div class="card tall" onclick="showDetail('hors-champ')">
+          <div class="card-img">
+            <img src="images/hc-logo.jpg" alt="Hors Champ" />
+          </div>
+          <div class="card-info">
+            <div class="card-tag" data-fr="Projet 360" data-en="360 Project">Projet 360</div>
+            <div class="card-name">Hors Champ</div>
+          </div>
+        </div>
+
+        <!-- Typo à la main -->
+        <div class="card" onclick="showDetail('typo-main')">
+          <div class="card-img">
+            <img src="images/affiche-souvenirdete.jpg" alt="Typo à la main" />
+          </div>
+          <div class="card-info">
+            <div class="card-tag">Édition & typographie</div>
+            <div class="card-name">Typographie à la main</div>
+          </div>
+        </div>
+
+        <!-- La Vie Food -->
+        <div class="card" onclick="showDetail('picard')">
+          <div class="card-img">
+            <img src="images/picard-lavie.png" alt="La Vie Food" />
+          </div>
+          <div class="card-info">
+            <div class="card-tag" data-fr="Alternance · DDB" data-en="Internship · DDB">Alternance · DDB</div>
+            <div class="card-name">Picard</div>
+          </div>
+        </div>
+
+        <!-- Livre de cuisine coréenne -->
+        <div class="card" onclick="showDetail('cuisine-coreenne')">
+          <div class="card-img">
+            <img src="images/livre-cuisine-mockup.jpg" alt="Livre de cuisine coréenne" />
+          </div>
+          <div class="card-info">
+            <div class="card-tag">Illustration</div>
+            <div class="card-name">Livre de cuisine coréenne</div>
+          </div>
+        </div>
+
+        <!-- Cacoph­talmie -->
+        <div class="card" onclick="showDetail('cacoftalmie')">
+          <div class="card-img">
+            <img src="images/cacophtalmie-mockup.jpg" alt="Cacoph­talmie" />
+          </div>
+          <div class="card-info">
+            <div class="card-tag">Impression</div>
+            <div class="card-name">Cacoph­talmie</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+
+  <!-- =====================
+       PROJETS
+  ===================== -->
+  <div class="page" id="page-projets">
+
+    <div class="page-header">
+      <h1 class="page-title">Tous les <em>projets</em></h1>
+      <p class="page-count">20 projets · 5 catégories</p>
+    </div>
+
+    <!-- Projets 360 -->
+    <div class="proj-section">
+      <div class="proj-section-header">
+        <span class="proj-section-title">Projets 360</span>
+        <span class="proj-section-count">5 projets</span>
+      </div>
+      <div class="proj-grid g5">
+        <div class="card-sm" onclick="showDetail('bon-appetit')"><div class="card-sm-img"><img src="images/oeuf2.jpg" alt="Bon appétit" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Projet 360" data-en="360 Project">Projet 360</div><div class="card-sm-name">Bon appétit !</div></div></div>
+        <div class="card-sm" onclick="showDetail('fiesta')"><div class="card-sm-img"><img src="images/fiesta-logo.jpg" alt="Fiesta" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Projet 360" data-en="360 Project">Projet 360</div><div class="card-sm-name">Fiesta !</div></div></div>
+        <div class="card-sm" onclick="showDetail('hors-champ')"><div class="card-sm-img"><img src="images/hc-logo.jpg" alt="Hors Champ" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Projet 360" data-en="360 Project">Projet 360</div><div class="card-sm-name">Hors Champ</div></div></div>
+        <div class="card-sm"><div class="card-sm-img"><span class="card-sm-letter">R</span></div><div class="card-sm-info"><span class="badge" data-fr="En cours" data-en="In progress">En cours</span><div class="card-sm-name">Roots & Flowers</div></div></div>
+        <div class="card-sm"><div class="card-sm-img"><span class="card-sm-letter">R</span></div><div class="card-sm-info"><span class="badge" data-fr="En cours" data-en="In progress">En cours</span><div class="card-sm-name">Réminiscence</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- Illustrations -->
+    <div class="proj-section">
+      <div class="proj-section-header">
+        <span class="proj-section-title">Illustrations</span>
+        <span class="proj-section-count">6 projets</span>
+      </div>
+      <div class="proj-grid g3">
+        <div class="card-sm" onclick="showDetail('cloud-forest')"><div class="card-sm-img"><img src="images/cloud-forest-mockup.jpg" alt="Cloud Forest" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Packaging" data-en="Packaging">Packaging</div><div class="card-sm-name">Cloud Forest</div></div></div>
+        <div class="card-sm" onclick="showDetail('scenes-plurielles')"><div class="card-sm-img"><img src="images/scene-plurielle-mockup.jpg" alt="Scènes Plurielles" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Affiche" data-en="Poster">Affiche</div><div class="card-sm-name">Scènes Plurielles</div></div></div>
+        <div class="card-sm" onclick="showDetail('cuisine-coreenne')"><div class="card-sm-img"><img src="images/livre-cuisine-mockup2.jpg" alt="Cuisine coréenne" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Édition" data-en="Editorial">Édition</div><div class="card-sm-name">Livre de cuisine coréenne</div></div></div>
+        <div class="card-sm" onclick="showDetail('tropicana')"><div class="card-sm-img"><img src="images/cannettes-mockup.jpg" alt="Tropicana" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Packaging" data-en="Packaging">Packaging</div><div class="card-sm-name">Tropicana</div></div></div>
+        <div class="card-sm" onclick="showDetail('festival-sf')"><div class="card-sm-img"><img src="images/sf-mockup.jpg" alt="Festival SF" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Affiche" data-en="Poster">Affiche</div><div class="card-sm-name">Festival de films SF</div></div></div>
+        <div class="card-sm" onclick="showDetail('mille-bornes')"><div class="card-sm-img"><img src="images/mockup-pack-avant.jpg" alt="L&#x27;addition s&#x27;il vous pla&#xEE;t" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Refonte" data-en="Redesign">Refonte</div><div class="card-sm-name">L&#x27;addition s&#x27;il vous pla&#xEE;t</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- Édition & typographie -->
+    <div class="proj-section">
+      <div class="proj-section-header">
+        <span class="proj-section-title">Édition & typographie</span>
+        <span class="proj-section-count">3 projets</span>
+      </div>
+      <div class="proj-grid g3">
+        <div class="card-sm" onclick="showDetail('akihabara')"><div class="card-sm-img"><img src="images/learning-from-akihabara-couverture.jpg" alt="Learning from Akihabara" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Mise en page" data-en="Layout">Mise en page</div><div class="card-sm-name">Learning from Akihabara</div></div></div>
+        <div class="card-sm" onclick="showDetail('typo-main')"><div class="card-sm-img"><img src="images/affiche-souvenirdete.jpg" alt="Typo à la main" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Typographie" data-en="Typography">Typographie</div><div class="card-sm-name">Typographie à la main</div></div></div>
+        <div class="card-sm" onclick="showDetail('lettrage-vinyle')"><div class="card-sm-img"><img src="images/lettrage-vinyle.jpg" alt="Lettrage sur vinyle" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Lettrage" data-en="Lettering">Lettrage</div><div class="card-sm-name">Lettrage sur vinyle</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- Projets imprimés -->
+    <div class="proj-section">
+      <div class="proj-section-header">
+        <span class="proj-section-title">Projets imprimés</span>
+        <span class="proj-section-count">4 projets</span>
+      </div>
+      <div class="proj-grid g4">
+        <div class="card-sm" onclick="showDetail('cacoftalmie')"><div class="card-sm-img"><img src="images/cacophtalmie-mockup.jpg" alt="Cacoph­talmie" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Affiche" data-en="Poster">Affiche</div><div class="card-sm-name">Cacoph­talmie</div></div></div>
+        <div class="card-sm" onclick="showDetail('pochette-vinyle')"><div class="card-sm-img"><img src="images/mockup-vinyle.jpg" alt="Pochette vinyle" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Imprimé" data-en="Print">Imprimé</div><div class="card-sm-name">Pochette de vinyle</div></div></div>
+        <div class="card-sm" onclick="showDetail('faire-affiche')"><div class="card-sm-img"><img src="images/faire-une-affiche-mockup.jpg" alt="Faire une affiche" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Affiche contestataire" data-en="Protest poster">Affiche contestataire</div><div class="card-sm-name">Faire une affiche</div></div></div>
+        <div class="card-sm" onclick="showDetail('fanzine')"><div class="card-sm-img"><img src="images/print-fanzine.jpg" alt="Fanzine de collection" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Édition" data-en="Editorial">Édition</div><div class="card-sm-name">Fanzine de collection</div></div></div>
+      </div>
+    </div>
+
+    <div class="sec-divider"></div>
+
+    <!-- Projets d'alternance -->
+    <div class="proj-section" style="padding-bottom: 72px;">
+      <div class="proj-section-header">
+        <span class="proj-section-title">Projets d'alternance · DDB</span>
+        <span class="proj-section-count">2 projets</span>
+      </div>
+      <div class="proj-grid g3">
+        <div class="card-sm" onclick="showDetail('execution')"><div class="card-sm-img"><img src="images/couv-exe.jpg" alt="Exécution" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Alternance · DDB" data-en="Internship · DDB">Alternance · DDB</div><div class="card-sm-name">Exécution</div></div></div>
+        <div class="card-sm" onclick="showDetail('picard')"><div class="card-sm-img"><img src="images/picard-lavie.png" alt="Picard" /></div><div class="card-sm-info"><div class="card-sm-tag" data-fr="Alternance · DDB" data-en="Internship · DDB">Alternance · DDB</div><div class="card-sm-name">Picard</div></div></div>
+
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       À PROPOS
+  ===================== -->
+  <div class="page" id="page-apropos">
+
+    <div class="apropos-hero">
+      <div>
+        <h1 class="apropos-title">Bonjour,<br>moi c'est <em>Fany !</em></h1>
+        <div class="apropos-bio">
+          <p>J'ai 21 ans, diplômée d'un Bachelor Design Graphique et Imprimé à Lille, avec deux ans d'expérience en agence chez DDB Paris. Le design est pour moi bien plus qu'un métier, c'est un vrai terrain de jeu, une façon de penser et de ressentir le monde. Aujourd'hui je cherche à construire mon parcours dans un environnement qui me correspond, autant professionnellement que personnellement.</p>
+          <p>Entre rigueur technique et sensibilité visuelle, j'aime concevoir des identités graphiques, affiches et illustrations qui traduisent des idées en émotions. Mon univers se nourrit autant de musique que de dessin, deux langages que j'aime faire correspondre à travers mes projets.</p>
+          <p>Curieuse et pleine d'énergie, je cherche toujours à apprendre, à expérimenter et à affirmer peu à peu mon identité de graphiste. Une identité à la fois sensible, vivante et en mouvement.</p>
+        </div>
+      </div>
+      <div class="apropos-photo">
+        <img src="images/photo-id.png" alt="Fany Gobin" style="width:100%;height:100%;object-fit:cover;filter:grayscale(100%);" />
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="apropos-bottom">
+
+      <!-- Formations -->
+      <div>
+        <div class="apropos-section-title">Formations</div>
+        <div class="formation">
+          <div class="formation-name">Bachelor Design Graphique et Imprimé</div>
+          <div class="formation-sub">3ème année · ESDAC, Lille</div>
+          <div class="formation-year">2025 — 2026</div>
+        </div>
+        <div class="formation">
+          <div class="formation-name">Bachelor Design Graphique</div>
+          <div class="formation-sub">1ère et 2ème année · MJM Graphic Design, Lille</div>
+          <div class="formation-year">2023 — 2025</div>
+        </div>
+        <div class="formation">
+          <div class="formation-name">Licence 1 LEA</div>
+          <div class="formation-sub">Langues Étrangères & Appliquées aux affaires, Lille</div>
+          <div class="formation-year">2022 — 2023</div>
+        </div>
+        <div class="formation">
+          <div class="formation-name">Baccalauréat</div>
+          <div class="formation-sub">Spécialités Scientifiques</div>
+          <div class="formation-year">2021 — 2022</div>
+        </div>
+      </div>
+
+      <!-- Expériences + Savoir-être -->
+      <div>
+        <div class="apropos-section-title">Expériences</div>
+        <div class="xp">
+          <div class="xp-top">
+            <span class="xp-name">Alternance chez DDB / BBDO Paris</span>
+            <span class="xp-date">2024 — 2026</span>
+          </div>
+          <div class="xp-sub">Assistante Production Print</div>
+        </div>
+        <div class="xp">
+          <div class="xp-top">
+            <span class="xp-name">Formation Figma</span>
+            <span class="xp-date">fév. 2026</span>
+          </div>
+          <div class="xp-sub">2 jours · Ziggourat Paris</div>
+        </div>
+        <div class="xp">
+          <div class="xp-top">
+            <span class="xp-name">Workshop Design Éco-Responsable</span>
+            <span class="xp-date">fév. 2026</span>
+          </div>
+          <div class="xp-sub">ESDAC, Lille</div>
+        </div>
+
+        <div class="apropos-sub-title">Savoir-être</div>
+        <ul class="soft-list">
+          <li>Richesse créative</li>
+          <li>Curiosité toujours vive</li>
+          <li>Esprit littéraire et critique</li>
+          <li>Passionnée pétillante</li>
+        </ul>
+      </div>
+
+      <!-- Compétences -->
+      <div>
+        <div class="apropos-section-title">Compétences</div>
+        <div class="skills-logos">
+          <img src="images/illustrator.png" alt="Illustrator" style="width:36px;height:36px;border-radius:8px;" />
+          <img src="images/indesign.svg.png" alt="Indesign" style="width:36px;height:36px;border-radius:8px;" />
+          <img src="images/photoshop.png" alt="Photoshop" style="width:36px;height:36px;border-radius:8px;" />
+          <img src="images/figma.webp" alt="Figma" style="width:36px;height:36px;border-radius:8px;object-fit:contain;background:#1E1E1E;padding:4px;" />
+          <img src="images/aftereffect.png" alt="After Effects" style="width:36px;height:36px;border-radius:8px;" />
+          <img src="images/dimension.png" alt="Dimension" style="width:36px;height:36px;border-radius:8px;" />
+          <img src="images/xd.png" alt="Adobe XD" style="width:36px;height:36px;border-radius:8px;" />
+        </div>
+        <p class="skills-text">
+          Photoshop · Indesign · Illustrator · Figma — niveau <b>intermédiaire +</b><br>
+          After Effect · Dimension · Adobe XD — niveau <b>débutant</b>
+        </p>
+        <p class="skills-text" style="margin-top: 14px;">
+          Mon expérience en alternance en tant qu'<b>exécutante</b> m'a permis de développer une grande <b>rigueur</b> dans la préparation des fichiers. J'y ai également acquis une <b>solide expertise</b> dans le domaine du <b>Print</b>, tout en renforçant mes compétences en <b>conceptualisation</b>, en <b>conception de maquettes de packaging</b> et en <b>illustration</b>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- =====================
+       CONTACT
+  ===================== -->
+  <div class="page" id="page-contact">
+
+    <div class="contact-wrap">
+      <h1 class="contact-title">
+        Et si on créait<br>
+        quelque chose de<br>
+        <em>beau ensemble ?</em>
+      </h1>
+
+      <div class="contact-grid">
+
+        <!-- Formulaire -->
+        <form action="mailto:fany.gobin.pro@gmail.com" method="POST" enctype="text/plain">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Prénom</label>
+              <input class="form-input" type="text" placeholder="Marie" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Nom</label>
+              <input class="form-input" type="text" placeholder="Dupont" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Email</label>
+            <input class="form-input" type="email" placeholder="marie@exemple.com" />
+          </div>
+          <div class="form-field">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Votre message..."></textarea>
+          </div>
+          <button class="form-submit" type="button" onclick="submitForm()">Envoyer →</button>
+        </form>
+        <div id="form-success" style="display:none; padding:48px 0; text-align:left;">
+          <p style="font-family:'DM Serif Display',serif; font-size:32px; font-weight:400; font-style:italic; color:#000;" id="form-success-text">à bientôt :)</p>
+        </div>
+
+        <!-- Infos -->
+        <div class="contact-infos">
+          <div>
+            <div class="info-label">Email</div>
+            <a class="info-link" href="mailto:fany.gobin.pro@gmail.com">fany.gobin.pro@gmail.com</a>
+          </div>
+          <div>
+            <div class="info-label">Téléphone</div>
+            <div class="info-value">07 81 60 81 72</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="contact-footer">
+      <div class="socials">
+        <!-- LinkedIn -->
+        <a class="social-btn" href="https://www.linkedin.com/in/fany-gobin-13082004f" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <!-- Instagram -->
+        <a class="social-btn" href="https://www.instagram.com/f444ny_/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+        </a>
+      </div>
+      <span class="copyright">© Fany Gobin 2026</span>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       DÉTAIL PROJET (Template A — riche)
+       Duplique et adapte pour chaque projet
+  ===================== -->
+  <div class="page" id="page-detail">
+
+    <div class="detail-hero">
+      <div>
+        <span class="back-link" id="detail-back" onclick="show('projets')">← Tous les projets</span>
+        <div class="detail-cat" id="detail-cat"></div>
+        <h1 class="detail-title" id="detail-title"></h1>
+        <div class="detail-year" id="detail-year"></div>
+      </div>
+      <div class="detail-meta" id="detail-meta"></div>
+    </div>
+
+    <div class="detail-main-visual" id="detail-main">
+      <div class="detail-visual-placeholder">↑ visuel principal</div>
+    </div>
+
+    <div class="detail-body" id="detail-body"></div>
+
+  </div>
+
+
+  <!-- =====================
+       DÉTAIL PROJET — Template B (simple)
+       Illustrations, Imprimés, Édition & typo
+  ===================== -->
+  <div class="page" id="page-detail-b">
+
+    <div class="detail-hero">
+      <div>
+        <span class="back-link" onclick="show('projets')">← Tous les projets</span>
+        <div class="detail-cat" id="detail-b-cat">Illustration</div>
+        <h1 class="detail-title" id="detail-b-title">Cloud <em>Forest</em></h1>
+        <div class="detail-year" id="detail-b-year">2024</div>
+        <p class="detail-text" id="detail-b-desc" style="margin-top: 20px; margin-bottom: 0;">
+          Création d'un visuel pour un packaging de café pour Cloud Forest, une marque lilloise avec un pays au choix, ici le Kenya.
+        </p>
+      </div>
+      <div class="detail-meta" id="detail-b-meta">
+        <div>
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Illustration · Packaging</div>
+        </div>
+        <div>
+          <div class="meta-label">Outils</div>
+          <div class="meta-value">Illustrator</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-main-visual" id="detail-b-main">
+      <div class="detail-visual-placeholder">↑ visuel principal</div>
+    </div>
+
+    <div class="detail-body">
+      <div class="detail-grid" id="detail-b-grid"></div>
+    </div>
+
+  </div>
+
+
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox-overlay" id="lightbox" onclick="closeLightbox()">
+    <span class="lightbox-close" onclick="closeLightbox()">✕</span>
+    <img id="lightbox-img" src="" alt="" onclick="event.stopPropagation()" />
+  </div>
+
+  <!-- =====================
+       JS — NAVIGATION
+  ===================== -->
+  <script>
+
+
+    /* ---------- Formulaire contact ---------- */
+    function submitForm() {
+      const form = document.querySelector('#page-contact form');
+      const success = document.getElementById('form-success');
+      const successText = document.getElementById('form-success-text');
+      if (form && success) {
+        form.style.opacity = '0';
+        form.style.transition = 'opacity 0.4s ease';
+        setTimeout(function() {
+          form.style.display = 'none';
+          successText.textContent = currentLang === 'en' ? 'see you soon :)' : 'à bientôt :)';
+          success.style.display = 'block';
+          success.style.opacity = '0';
+          success.style.transition = 'opacity 0.4s ease';
+          setTimeout(function() { success.style.opacity = '1'; }, 50);
+        }, 400);
+      }
+    }
+
+    /* ---------- Lightbox ---------- */
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    /* ---------- Traductions FR/EN ---------- */
+    const projectTranslations = {
+      'bon-appetit': { cat_en: '360 Project', contexte_en: 'Creation of a recipe booklet built around a single ingredient: the egg. 9 recipes with a complete visual identity.', meta_en: [{label:'Type',value:'Editorial · Visual identity'},{label:'Tools',value:'Illustrator · Indesign'}], exp_text_en: 'My experimentations revolved around the egg and its shell, but especially the egg yolk. I made plastic experimentations but also with AI — the result is much flatter with AI but more realistic with the real egg, so I chose the latter for my recipes.' },
+      'fiesta': { cat_en: '360 Project', contexte_en: 'Creation of the visual identity (with print and digital variations) for the Fiesta event by Lille3000.', meta_en: [{label:'Type',value:'Visual identity · print · digital'},{label:'Tools',value:'Illustrator · Indesign · Photoshop'}], exp_text_en: 'I wanted to experiment around synesthesia — the blending of senses, where stimulation of one sense involuntarily triggers the perception of another, particularly sounds or words perceived as colours. Kandinsky, for example, was a born synesthete. I experimented with colour dots that animate and represent the senses blending together to form synesthesia.', charte_text_en: 'I chose 4 colours, including blue and green used interchangeably. Since blue is in RGB, I found it more interesting to add an extra colour for print, to avoid altering the vibrancy of the blue when converting to CMYK.' },
+      'hors-champ': { cat_en: '360 Project', contexte_en: 'Creation of the visual identity for the photo exhibition "Hors Champ" at the Institut de la Photographie de Lille. Focused on care workers made invisible in urban spaces.', meta_en: [{label:'Type',value:'Group project · Visual identity, print, digital'},{label:'Tools',value:'Illustrator · Indesign · Photoshop'}], recherches_en: 'For this project, we turned our attention to people often made invisible in our society: those working in care professions, particularly women, who make up the majority in this field. Care workers include nurses, care assistants, home helpers…\n\nAccording to the International Labour Organization, 65% of care sector workers are women, revealing a strong gender dimension. These jobs are often underpaid and socially invisible, despite their essential role in modern society. The goal of this exhibition is to give these professions the visibility they deserve and highlight their social and gendered dimensions.\n\nWe chose 5 photographers: Florence Brochoire, Robert X. Fogarty, Anne Bardas, Vanessa Braunstedter and Anouk Desury.' },
+      'cloud-forest': { cat_en: 'Illustration', desc_en: 'Creation of a visual for a coffee packaging for Cloud Forest, a Lille-based brand — here, Kenya.', meta_en: [{label:'Type',value:'Illustration · Packaging'},{label:'Tools',value:'Illustrator'}] },
+      'scenes-plurielles': { cat_en: 'Illustration', desc_en: 'Creation of a poster for the "Scènes Plurielles Spectacles" event.', meta_en: [{label:'Type',value:'Poster · Illustration'},{label:'Tools',value:'Illustrator'}] },
+      'cuisine-coreenne': { cat_en: 'Illustration', desc_en: 'Creation of a cover and double-page spread for a cookbook — 3 theme options: Korea, Mexico or Vegetarian.', meta_en: [{label:'Type',value:'Illustration · Editorial'},{label:'Tools',value:'Illustrator · Indesign'}] },
+      'tropicana': { cat_en: 'Illustration', desc_en: 'Creation of a new range for canned juices for the Tropicana brand.', meta_en: [{label:'Type',value:'Illustration · Packaging'},{label:'Tools',value:'Illustrator'}] },
+      'festival-sf': { cat_en: 'Illustration', desc_en: 'Creation of a poster for the "Les Réalités Parallèles" science-fiction film festival.', meta_en: [{label:'Type',value:'Poster · Illustration'},{label:'Tools',value:'Illustrator · Photoshop'}] },
+      'mille-bornes': { cat_en: 'Illustration', desc_en: 'Graphic redesign of the Mille Bornes card game.', meta_en: [{label:'Type',value:'Redesign · Illustration'},{label:'Tools',value:'Illustrator'}] },
+      'akihabara': { cat_en: 'Edition & typography', desc_en: 'Layout design for an article titled "Learning from Akihabara".', meta_en: [{label:'Type',value:'Layout · Editorial'},{label:'Tools',value:'Indesign'}] },
+      'typo-main': { cat_en: 'Edition & typography', desc_en: 'Creation of handmade typographies based on a chosen theme — poetry. I chose to make 2 posters and a photo album.', meta_en: [{label:'Type',value:'Typography · Calligraphy'},{label:'Tools',value:'Handmade'}] },
+      'lettrage-vinyle': { cat_en: 'Edition & typography', desc_en: 'Lettering on a graphic object of choice: here, a vinyl record sleeve.', meta_en: [{label:'Type',value:'Lettering · Typography'},{label:'Tools',value:'Illustrator · Photoshop'}] },
+      'cacoftalmie': { cat_en: 'Print projects', desc_en: 'Creation of a poster with a chosen theme: here Cacoph\u00ADtalmia, visual cacophony. Inspired by the world of airports.', meta_en: [{label:'Type',value:'Poster · Print'},{label:'Tools',value:'Illustrator · Indesign'}] },
+      'pochette-vinyle': { cat_en: 'Print projects', desc_en: "Creation of a vinyl record sleeve for an artist of choice: Laylow's L'étrange histoire de Mr Anderson.", meta_en: [{label:'Type',value:'Print · Editorial design'},{label:'Tools',value:'Illustrator · Photoshop'}] },
+      'faire-affiche': { cat_en: 'Print projects', desc_en: 'Creation of a protest poster: "When bombs speak, humanity stays silent."', meta_en: [{label:'Type',value:'Protest poster'},{label:'Tools',value:'Illustrator'}] },
+      'fanzine': { cat_en: 'Print projects', desc_en: 'Creation of a collection fanzine about my favourite love memories, built as an envelope/love letter.', meta_en: [{label:'Type',value:'Editorial · Fanzine'},{label:'Tools',value:'Indesign · Illustrator'}] },
+      'execution': { cat_en: 'Internship · DDB', desc_en: 'When extra support is needed, I handle various budgets — text modifications, deliverable handoffs, etc.', meta_en: [{label:'Clients',value:"McDonald's · Puget · Royal Canin"},{label:'Agency',value:'DDB Paris'},{label:'Type',value:'Advertising posters · Press ad'},{label:'Tools',value:'Illustrator · Indesign · Photoshop'}] },
+      'picard': { cat_en: 'Internship · DDB', contexte_en: 'I mainly handle execution on Picard packagings: checking dimensions, die-cuts and 100% black overprinting, verifying correct colours and Pantone values, making corrections, applying CMYK visuals for print, cleaning the document.', meta_en: [{label:'Client',value:'Picard Surgelés'},{label:'Agency',value:'DDB Paris'},{label:'Type',value:'Packaging & mock-ups'},{label:'Tools',value:'Illustrator · Indesign · Photoshop'}] },
+    };
+
+
+
+    let currentLang = 'fr';
+
+    const translations = {
+      fr: {
+        navHome: 'Home', navProjets: 'Projets', navApropos: 'À propos', navContact: 'Contact',
+        heroLabel: 'Bienvenue dans le portfolio de Fany !',
+        heroTitle: 'Design graphique,<br><em>digital & print</em>',
+        heroBio: 'Designer graphique basée à Lille, diplômée du Bachelor Design Graphique et Imprimé à Lille. Je crée des identités visuelles et des expériences graphiques qui ont quelque chose à raconter.',
+        heroCta: 'Voir les projets →',
+        projetsLabel: 'Sélection de projets',
+        seeAll: 'Tous les projets →',
+        pageTitle: 'Tous les <em>projets</em>',
+        pageCount: '20 projets · 5 catégories',
+        backLink: '← Tous les projets',
+        contactTitle: 'Et si on créait<br>quelque chose de<br><em>beau ensemble ?</em>',
+        formPrenom: 'Prénom', formNom: 'Nom', formEmail: 'Email', formMessage: 'Message',
+        formSend: 'Envoyer →',
+        infoLoc: 'Email', infoLocVal: 'Lille et ses alentours',
+        infoTel: 'Téléphone',
+        aproposTitle: 'Bonjour,<br>moi c\'est <em>Fany !</em>',
+        aproposBio1: 'J\'ai 21 ans, diplômée d\'un Bachelor Design Graphique et Imprimé à Lille, avec deux ans d\'expérience en agence chez DDB Paris. Le design est pour moi bien plus qu\'un métier, c\'est un vrai terrain de jeu, une façon de penser et de ressentir le monde. Aujourd\'hui je cherche à construire mon parcours dans un environnement qui me correspond, autant professionnellement que personnellement.',
+        aproposBio2: 'Entre rigueur technique et sensibilité visuelle, j\'aime concevoir des identités graphiques, affiches et illustrations qui traduisent des idées en émotions. Mon univers se nourrit autant de musique que de dessin, deux langages que j\'aime faire correspondre à travers mes projets.',
+        aproposBio3: 'Curieuse et pleine d\'énergie, je cherche toujours à apprendre, à expérimenter et à affirmer peu à peu mon identité de graphiste. Une identité à la fois sensible, vivante et en mouvement.',
+      },
+      en: {
+        navHome: 'Home', navProjets: 'Projects', navApropos: 'About', navContact: 'Contact',
+        heroLabel: 'Welcome to Fany\'s portfolio!',
+        heroTitle: 'Graphic design,<br><em>digital & print</em>',
+        heroBio: 'Graphic designer based in Lille, graduated with a Bachelor\'s in Graphic and Print Design. I create visual identities and graphic experiences that have something to say.',
+        heroCta: 'View projects →',
+        projetsLabel: 'Selected works',
+        seeAll: 'All projects →',
+        pageTitle: 'All <em>projects</em>',
+        pageCount: '20 projects · 5 categories',
+        backLink: '← All projects',
+        contactTitle: 'What if we created<br>something beautiful<br><em>together?</em>',
+        formPrenom: 'First name', formNom: 'Last name', formEmail: 'Email', formMessage: 'Message',
+        formSend: 'Send →',
+        infoLoc: 'Email', infoLocVal: 'Lille and surroundings',
+        infoTel: 'Phone',
+        aproposTitle: 'Hello,<br>I\'m <em>Fany!</em>',
+        aproposBio1: 'I\'m 21, graduated with a Bachelor\'s in Graphic and Print Design from Lille, with two years of experience at DDB Paris. Design is more than a job to me — it\'s a playground, a way of thinking and feeling the world. I\'m currently looking to build my career in an environment that suits me, both professionally and personally.',
+        aproposBio2: 'Balancing technical precision and visual sensitivity, I love designing visual identities, posters and illustrations that translate ideas into emotions. My world is nourished by music and drawing equally — two languages I love to bring together in my projects.',
+        aproposBio3: 'Curious and full of energy, I\'m always looking to learn, experiment and gradually affirm my identity as a designer. An identity that is sensitive, alive and in motion.',
+      }
+    };
+
+    function toggleLang() {
+      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      const t = translations[currentLang];
+
+      // Boutons
+      document.getElementById('btn-fr').classList.toggle('active', currentLang === 'fr');
+      document.getElementById('btn-en').classList.toggle('active', currentLang === 'en');
+
+      // Nav
+      document.getElementById('nav-home').textContent    = t.navHome;
+      document.getElementById('nav-projets').textContent = t.navProjets;
+      document.getElementById('nav-apropos').textContent = t.navApropos;
+      document.getElementById('nav-contact').textContent = t.navContact;
+
+      // Homepage
+      const heroLabel = document.querySelector('.hero-label');
+      if (heroLabel) heroLabel.textContent = t.heroLabel;
+      const heroTitle = document.querySelector('.hero-title');
+      if (heroTitle) heroTitle.innerHTML = t.heroTitle;
+      const heroBio = document.querySelector('.hero-bio');
+      if (heroBio) heroBio.textContent = t.heroBio;
+      const heroCta = document.querySelector('.hero-cta');
+      if (heroCta) heroCta.textContent = t.heroCta;
+      const projLabel = document.querySelector('.projects-label');
+      if (projLabel) projLabel.textContent = t.projetsLabel;
+      const seeAll = document.querySelector('.see-all');
+      if (seeAll) seeAll.textContent = t.seeAll;
+
+      // Page projets
+      const pageTitle = document.querySelector('.page-title');
+      if (pageTitle) pageTitle.innerHTML = t.pageTitle;
+      const pageCount = document.querySelector('.page-count');
+      if (pageCount) pageCount.textContent = t.pageCount;
+
+      // Contact
+      const contactTitle = document.querySelector('.contact-title');
+      if (contactTitle) contactTitle.innerHTML = t.contactTitle;
+      const labels = document.querySelectorAll('.form-label');
+      const keys = ['formPrenom','formNom','formEmail','formMessage'];
+      labels.forEach((l, i) => { if (keys[i]) l.textContent = t[keys[i]]; });
+      const sendBtn = document.querySelector('.form-submit');
+      if (sendBtn) sendBtn.textContent = t.formSend;
+      const infoLabels = document.querySelectorAll('.info-label');
+      if (infoLabels[0]) infoLabels[0].textContent = t.infoLoc;
+      if (infoLabels[1]) infoLabels[1].textContent = t.infoTel;
+
+      // À propos
+      const aproposTitle = document.querySelector('.apropos-title');
+      if (aproposTitle) aproposTitle.innerHTML = t.aproposTitle;
+      const bios = document.querySelectorAll('.apropos-bio p');
+      if (bios[0]) bios[0].textContent = t.aproposBio1;
+      if (bios[1]) bios[1].textContent = t.aproposBio2;
+      if (bios[2]) bios[2].textContent = t.aproposBio3;
+
+      // Back links
+      document.querySelectorAll('.back-link').forEach(b => b.textContent = t.backLink);
+
+      // Titres de sections dans les pages détail
+      document.querySelectorAll('.detail-section-title').forEach(el => {
+        const map = {
+          'Contexte': currentLang === 'en' ? 'Context' : 'Contexte',
+          'Context': currentLang === 'en' ? 'Context' : 'Contexte',
+          'Process': currentLang === 'en' ? 'Process' : 'Process',
+          'Moodboard': 'Moodboard',
+          'Expérimentations': currentLang === 'en' ? 'Experimentations' : 'Expérimentations',
+          'Experimentations': currentLang === 'en' ? 'Experimentations' : 'Expérimentations',
+          'Recherches documentaires': currentLang === 'en' ? 'Research' : 'Recherches documentaires',
+          'Research': currentLang === 'en' ? 'Research' : 'Recherches documentaires',
+          'Expérimentations de la charte graphique': currentLang === 'en' ? 'Identity experimentations' : 'Expérimentations de la charte graphique',
+          'Identity experimentations': currentLang === 'en' ? 'Identity experimentations' : 'Expérimentations de la charte graphique',
+          'Charte graphique': currentLang === 'en' ? 'Brand guidelines' : 'Charte graphique',
+          'Brand guidelines': currentLang === 'en' ? 'Brand guidelines' : 'Charte graphique',
+          'Son application': currentLang === 'en' ? 'Application' : 'Son application',
+          'Application': currentLang === 'en' ? 'Application' : 'Son application',
+          'Mockups': 'Mockups',
+          'Tests logo': currentLang === 'en' ? 'Logo tests' : 'Tests logo',
+          'Logo tests': currentLang === 'en' ? 'Logo tests' : 'Tests logo',
+          'Développement graphique': currentLang === 'en' ? 'Graphic development' : 'Développement graphique',
+          'Graphic development': currentLang === 'en' ? 'Graphic development' : 'Développement graphique',
+          'Rendu final': currentLang === 'en' ? 'Final result' : 'Rendu final',
+          'Final result': currentLang === 'en' ? 'Final result' : 'Rendu final',
+          'Projets': currentLang === 'en' ? 'Projects' : 'Projets',
+          'Projects': currentLang === 'en' ? 'Projects' : 'Projets',
+          'Visuels': currentLang === 'en' ? 'Visuals' : 'Visuels',
+          'Visuals': currentLang === 'en' ? 'Visuals' : 'Visuels',
+          'Mises en situation': currentLang === 'en' ? 'Mock-ups in context' : 'Mises en situation',
+          'Mock-ups in context': currentLang === 'en' ? 'Mock-ups in context' : 'Mises en situation',
+          'Packaging': 'Packaging',
+        };
+        const mapped = map[el.textContent.trim()];
+        if (mapped) el.textContent = mapped;
+      });
+
+      // Labels meta (Type, Outils, etc.)
+      document.querySelectorAll('.meta-label').forEach(el => {
+        const map = {
+          'Contexte': currentLang === 'en' ? 'Context' : 'Contexte',
+          'Context': currentLang === 'en' ? 'Context' : 'Contexte',
+          'Type': 'Type',
+          'Outils': currentLang === 'en' ? 'Tools' : 'Outils',
+          'Tools': currentLang === 'en' ? 'Tools' : 'Outils',
+          'Client': 'Client',
+          'Clients': 'Clients',
+          'Agence': currentLang === 'en' ? 'Agency' : 'Agence',
+          'Agency': currentLang === 'en' ? 'Agency' : 'Agence',
+        };
+        const mapped = map[el.textContent.trim()];
+        if (mapped) el.textContent = mapped;
+      });
+
+      // Catégories dans les cards (via card-tag et card-sm-tag sans data-fr/en)
+      const catMapFrEn = {
+        'Projet 360': '360 Project', '360 Project': currentLang==='en'?'360 Project':'Projet 360',
+        'Packaging': 'Packaging', 'Affiche': currentLang==='en'?'Poster':'Affiche',
+        'Poster': currentLang==='en'?'Poster':'Affiche',
+        'Édition': currentLang==='en'?'Editorial':'Édition',
+        'Editorial': currentLang==='en'?'Editorial':'Édition',
+        'Typographie': currentLang==='en'?'Typography':'Typographie',
+        'Typography': currentLang==='en'?'Typography':'Typographie',
+        'Lettrage': currentLang==='en'?'Lettering':'Lettrage',
+        'Lettering': currentLang==='en'?'Lettering':'Lettrage',
+        'Mise en page': currentLang==='en'?'Layout':'Mise en page',
+        'Layout': currentLang==='en'?'Layout':'Mise en page',
+        'Refonte': currentLang==='en'?'Redesign':'Refonte',
+        'Redesign': currentLang==='en'?'Redesign':'Refonte',
+        'Affiche contestataire': currentLang==='en'?'Protest poster':'Affiche contestataire',
+        'Protest poster': currentLang==='en'?'Protest poster':'Affiche contestataire',
+        'Imprimé': currentLang==='en'?'Print':'Imprimé',
+        'Print': currentLang==='en'?'Print':'Imprimé',
+        'Alternance · DDB': currentLang==='en'?'Internship · DDB':'Alternance · DDB',
+        'Internship · DDB': currentLang==='en'?'Internship · DDB':'Alternance · DDB',
+        'Illustration · Packaging': currentLang==='en'?'Illustration · Packaging':'Illustration · Packaging',
+        'Édition & typographie': currentLang==='en'?'Edition & typography':'Édition & typographie',
+        'Edition & typography': currentLang==='en'?'Edition & typography':'Édition & typographie',
+      };
+      document.querySelectorAll('.card-tag, .card-sm-tag, .detail-cat').forEach(el => {
+        const mapped = catMapFrEn[el.textContent.trim()];
+        if (mapped) el.textContent = mapped;
+      });
+
+      // Catégories et badges (data-fr / data-en)
+      document.querySelectorAll('[data-fr][data-en]').forEach(el => {
+        el.textContent = currentLang === 'en' ? el.getAttribute('data-en') : el.getAttribute('data-fr');
+      });
+
+      // Sections catégories page projets
+      document.querySelectorAll('.proj-section-title').forEach(el => {
+        const map = {
+          'Projets 360': currentLang === 'en' ? '360 Projects' : 'Projets 360',
+          '360 Projects': currentLang === 'en' ? '360 Projects' : 'Projets 360',
+          'Illustrations': 'Illustrations',
+          'Édition & typographie': currentLang === 'en' ? 'Edition & typography' : 'Édition & typographie',
+          'Edition & typography': currentLang === 'en' ? 'Edition & typography' : 'Édition & typographie',
+          'Projets imprimés': currentLang === 'en' ? 'Print projects' : 'Projets imprimés',
+          'Print projects': currentLang === 'en' ? 'Print projects' : 'Projets imprimés',
+          'Projets d\'alternance · DDB': currentLang === 'en' ? 'Internship projects · DDB' : 'Projets d\'alternance · DDB',
+          'Internship projects · DDB': currentLang === 'en' ? 'Internship projects · DDB' : 'Projets d\'alternance · DDB',
+        };
+        const mapped = map[el.textContent.trim()];
+        if (mapped) el.textContent = mapped;
+      });
+
+      // Compteurs "X projets" / "X projects"
+      document.querySelectorAll('.proj-section-count').forEach(el => {
+        const match = el.textContent.trim().match(/(\d+)/);
+        if (match) {
+          el.textContent = match[1] + (currentLang === 'en' ? ' projects' : ' projets');
+        }
+      });
+
+      // Compteur "20 projets · 5 catégories" déjà géré par pageCount
+
+      // Formations et expériences détail
+      const formationsEN = [
+        { name: 'Bachelor in Graphic and Print Design', sub: 'Year 3 · ESDAC, Lille', year: '2025 — 2026' },
+        { name: 'Bachelor in Graphic Design', sub: 'Years 1 & 2 · MJM Graphic Design, Lille', year: '2023 — 2025' },
+        { name: 'LEA Bachelor (Year 1)', sub: 'Foreign Languages Applied to Business, Lille', year: '2022 — 2023' },
+        { name: 'Baccalauréat', sub: 'Sciences', year: '2021 — 2022' },
+      ];
+      const formationsFR = [
+        { name: 'Bachelor Design Graphique et Imprimé', sub: '3ème année · ESDAC, Lille', year: '2025 — 2026' },
+        { name: 'Bachelor Design Graphique', sub: '1ère et 2ème année · MJM Graphic Design, Lille', year: '2023 — 2025' },
+        { name: 'Licence 1 LEA', sub: 'Langues Étrangères & Appliquées aux affaires, Lille', year: '2022 — 2023' },
+        { name: 'Baccalauréat', sub: 'Spécialités Scientifiques', year: '2021 — 2022' },
+      ];
+      const xpEN = [
+        { name: 'Internship at DDB / BBDO Paris', sub: 'Print Production Assistant', date: '2024 — 2026' },
+        { name: 'Figma Training', sub: '2 days · Ziggourat Paris', date: 'Feb. 2026' },
+        { name: 'Eco-Responsible Design Workshop', sub: 'ESDAC, Lille', date: 'Feb. 2026' },
+      ];
+      const xpFR = [
+        { name: 'Alternance chez DDB / BBDO Paris', sub: 'Assistante Production Print', date: '2024 — 2026' },
+        { name: 'Formation Figma', sub: '2 jours · Ziggourat Paris', date: 'fév. 2026' },
+        { name: 'Workshop Design Éco-Responsable', sub: 'ESDAC, Lille', date: 'fév. 2026' },
+      ];
+      const softEN = ['Creative richness', 'Always curious', 'Literary and critical mind', 'Sparkling passion'];
+      const softFR = ['Richesse créative', 'Curiosité toujours vive', 'Esprit littéraire et critique', 'Passionnée pétillante'];
+      const skillsTextEN = 'Photoshop · Indesign · Illustrator · Figma — <b>intermediate +</b><br>After Effect · Dimension · Adobe XD — <b>beginner</b>';
+      const skillsTextFR = 'Photoshop · Indesign · Illustrator · Figma — niveau <b>intermédiaire +</b><br>After Effect · Dimension · Adobe XD — niveau <b>débutant</b>';
+      const skillsDesc2EN = 'My internship experience as an <b>executor</b> allowed me to develop great <b>rigour</b> in file preparation. I also gained solid <b>Print expertise</b>, while strengthening my skills in <b>conceptualisation</b>, <b>packaging mockup design</b> and <b>illustration</b>.';
+      const skillsDescFR = "Mon expérience en alternance en tant qu'<b>exécutante</b> m'a permis de développer une grande <b>rigueur</b> dans la préparation des fichiers. J'y ai également acquis une <b>solide expertise</b> dans le domaine du <b>Print</b>, tout en renforçant mes compétences en <b>conceptualisation</b>, en <b>conception de maquettes de packaging</b> et en <b>illustration</b>.";
+
+      const formations = currentLang === 'en' ? formationsEN : formationsFR;
+      const xpList = currentLang === 'en' ? xpEN : xpFR;
+      const softList = currentLang === 'en' ? softEN : softFR;
+
+      // Mettre à jour formations
+      const formItems = document.querySelectorAll('.formation');
+      formItems.forEach(function(el, i) {
+        if (formations[i]) {
+          el.querySelector('.formation-name').textContent = formations[i].name;
+          el.querySelector('.formation-sub').textContent = formations[i].sub;
+          if (formations[i].year) el.querySelector('.formation-year').textContent = formations[i].year;
+        }
+      });
+
+      // Mettre à jour expériences
+      const xpItems = document.querySelectorAll('.xp');
+      xpItems.forEach(function(el, i) {
+        if (xpList[i]) {
+          el.querySelector('.xp-name').textContent = xpList[i].name;
+          el.querySelector('.xp-sub').textContent = xpList[i].sub;
+          el.querySelector('.xp-date').textContent = xpList[i].date;
+        }
+      });
+
+      // Soft skills
+      const softItems = document.querySelectorAll('.soft-list li');
+      softItems.forEach(function(el, i) {
+        if (softList[i]) el.textContent = softList[i];
+      });
+
+      // Skills text
+      const skillsTexts = document.querySelectorAll('.skills-text');
+      if (skillsTexts[0]) skillsTexts[0].innerHTML = currentLang === 'en' ? skillsTextEN : skillsTextFR;
+      if (skillsTexts[1]) skillsTexts[1].innerHTML = currentLang === 'en' ? skillsDesc2EN : skillsDescFR;
+
+      // Formations / Expériences / Compétences sur À propos
+      document.querySelectorAll('.apropos-section-title, .apropos-sub-title').forEach(el => {
+        const map = {
+          'Formations': currentLang === 'en' ? 'Education' : 'Formations',
+          'Education': currentLang === 'en' ? 'Education' : 'Formations',
+          'Expériences': currentLang === 'en' ? 'Experience' : 'Expériences',
+          'Experience': currentLang === 'en' ? 'Experience' : 'Expériences',
+          'Compétences': currentLang === 'en' ? 'Skills' : 'Compétences',
+          'Skills': currentLang === 'en' ? 'Skills' : 'Compétences',
+          'Savoir-être': currentLang === 'en' ? 'Soft skills' : 'Savoir-être',
+          'Soft skills': currentLang === 'en' ? 'Soft skills' : 'Savoir-être',
+        };
+        const mapped = map[el.textContent.trim()];
+        if (mapped) el.textContent = mapped;
+      });
+    }
+
+    
+    function show(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('visible'));
+      document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+
+      const el = document.getElementById('page-' + page);
+      if (el) el.classList.add('visible');
+
+      const navMap = {
+        home:      'nav-home',
+        projets:   'nav-projets',
+        apropos:   'nav-apropos',
+        contact:   'nav-contact',
+        'detail':    'nav-projets',
+        'detail-b':  'nav-projets',
+      };
+
+      const navEl = document.getElementById(navMap[page]);
+      if (navEl) navEl.classList.add('active');
+
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    }
+
+    /* ---------- Scroll vers sélection ---------- */
+    function scrollToProjects() {
+      const el = document.getElementById('selection');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    /* ================================================
+       DONNÉES DES PROJETS
+       ------------------------------------------------
+       template: 'a' = riche (360, alternance)
+                 'b' = simple (illustration, imprimé, édition)
+
+       images: tableau de noms de fichiers dans /images/
+               ex: ['hors-champ-1.jpg', 'hors-champ-2.jpg']
+
+       Pour template A :
+         - contexte : texte de la section Contexte
+         - process  : texte de la section Process
+
+       Pour template B :
+         - desc : description courte sous le titre
+    ================================================ */
+    const projetsData = {
+
+      /* ---- PROJETS 360 ---- */
+      'hors-champ': {
+        template: 'a',
+        cat: 'Projet 360',
+        title: 'Hors <em>Champ</em>',
+        year: '2025 — 2026',
+        meta: [
+          { label: 'Type',     value: 'Projet de groupe · Identité visuelle, print, digital' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        contexte: 'Création de l\'identité graphique (avec ses déclinaisons print et numériques) pour l\'exposition photo "Hors Champ" de l\'Institut de la Photographie de Lille. L\'exposition est consacrée aux personnes et lieux souvent invisibilisés dans l\'espace urbain : les métiers du Care.',
+        mainImage: 'hc-logo.jpg',
+        sections: [
+          { title: 'Recherches documentaires', text: 'Pour ce projet, nous avons décidé de nous tourner vers des personnes souvent invisibilisées dans notre société : les personnes ayant un métier du Care et plus particulièrement les femmes, car elles sont majoritaires dans ce domaine. Dans le Care, on retrouve les personnes qui s\'occupent d\'aider les gens au quotidien, regroupant toutes sortes de métiers (infirmières, aides-soignantes, auxiliaires de vie…). Selon l\'Organisation internationale du travail, 65 % des travailleurs du secteur du care sont des femmes, ce qui révèle une forte dimension genrée dans ces professions. Ces métiers sont souvent mal rémunérés et socialement invisibilisés, malgré leur rôle essentiel dans le fonctionnement des sociétés modernes. L\'objectif de cette exposition est de donner la visibilité que ces professions méritent, questionner la place du travail du care dans la société mais aussi montrer la dimension sociale et genrée de ces professions. Nous avons choisi 5 photographes qui nous paraissaient les plus adéquats : Florence Brochoire, Robert X. Fogarty, Anne Bardas, Vanessa Braunstedter et Anouk Desury.', layout: 'horizontal', images: ['hc-support-recherches.png'] },
+          { title: 'Moodboard', text: '', layout: 'horizontal', images: ['hc-moodoard.png'] },
+          { title: 'Expérimentations de la charte graphique', text: '', layout: 'horizontal', images: ['hc-experimentations.jpg','hc-experimentations2.jpg'] },
+          { title: 'Charte graphique', text: '', layout: 'horizontal', images: ['hc-charte-graphique.jpg'] },
+          { title: 'Son application', text: '', layout: 'horizontal', images: ['regles-securite.jpg'] },
+          { title: 'Mockups', text: '', layout: 'mockups-labeled', mockups: [
+            { file: 'hc-affiche-mockup.png', label: 'Affiches', ratio: '3/2', featured: true },
+            { file: 'hc-depliant.jpg', label: 'Dépliant', ratio: '16/9', featured: true },
+            { file: 'hc-cartel.png', label: 'Cartel', ratio: '13/8' },
+            { file: 'hc-livret.png', label: 'Livret', ratio: '83/51' },
+            { file: 'hc-mockup-cartes.png', label: 'Cartes postales', ratio: '3/2' },
+            { file: 'hc-sceno1.png', label: 'Scénographie', ratio: '63/43' },
+            { file: 'hc-sceno2.png', label: '', ratio: '100/67', featured: true },
+            { file: 'hc-sceno4.jpg', label: '', ratio: '141/97' },
+            { file: 'hc-sceno5.png', label: '', ratio: '214/143' },
+            { file: 'hc-sceno3.png', label: '', ratio: '67/100' },
+          ]},
+        ],
+        images: [],
+      },
+
+      'fiesta': {
+        template: 'a',
+        cat: 'Projet 360',
+        title: '<em>Fiesta !</em>',
+        year: '2024 — 2025',
+        meta: [
+          { label: 'Type',     value: 'Identité visuelle · print · digital' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        contexte: 'Création de l\'identité graphique (avec ses déclinaisons print et numériques) pour l\'évènement Fiesta de Lille3000.',
+        mainImage: 'fiesta-logo.jpg',
+        sections: [
+          { title: 'Tests logo', text: '', layout: 'horizontal', images: ['fiesta-tests-logo.png'] },
+          { title: 'Expérimentations', text: 'J\'ai voulu expérimenter autour de la synesthésie. Elle correspond au mélange des sens, ainsi la stimulation d\'un sens provoque involontairement la perception d\'un autre, plus particulièrement les sons ou chiffres et mots en couleurs. Par exemple, Kandinsky est un synesthète né.<br><br>Pour cela, j\'ai expérimenté autour de ces puces de couleurs qui s\'animent et représentent les sens qui se mélangent entre eux et cohabitent pour former la synesthésie.', layout: 'vertical-2', images: ['fiesta-exp1.png','fiesta-exp2.png'] },
+          { title: 'Charte graphique', text: 'J\'ai choisi 4 couleurs, dont 2 couleurs, le bleu et le vert, qui vont être utilisés l\'un ou l\'autre. Le bleu étant en RVB, il m\'a paru plus intéressant de prendre une couleur en plus pour le print pour éviter de dénaturer la vivacité du bleu en le mettant en CMJN.', layout: 'horizontal', images: ['fiesta-charte-graphique.png'] },
+          { title: 'Développement graphique', text: '', layout: 'horizontal', images: ['fiesta-dg.png'] },
+          { title: 'Mockups', text: '', layout: 'mockups', mockups: [
+            { file: 'fiesta-mockup-affiche.png', ratio: '16/9' },
+            { file: 'fiesta-mockup-story.png', ratio: '1/1' },
+            { file: 'fiesta-mockup-depliant.png', ratio: '47/27' },
+            { file: 'fiesta-mockup-post.png', ratio: '47/27' },
+            { file: 'fiesta-mockup-boite.png', ratio: '4/3' },
+            { file: 'fiesta-mockup-goodies.png', ratio: '72/37' },
+            { file: 'fiesta-mockup-totebag.png', ratio: '69/47' },
+            { file: 'fiesta-mockup-bracelet.png', ratio: '95/42' },
+          ]},
+        ],
+        images: [],
+      },
+
+      'bon-appetit': {
+        template: 'a',
+        cat: 'Projet 360',
+        title: 'Bon <em>appétit !</em>',
+        year: '2024 — 2025',
+        meta: [
+          { label: 'Type',     value: 'Édition · Identité visuelle' },
+          { label: 'Outils',   value: 'Illustrator · Indesign' },
+        ],
+        contexte: 'Création d\'un carnet de 9 recettes construit autour d\'un seul ingrédient : l\'œuf.',
+        mainImage: 'oeuf2.jpg',
+        sections: [
+          { title: 'Moodboard', text: '', layout: 'grid', images: ['oeuf.jpg','oeuf3.jpg','oeuf4.jpg','oeuf5.jpg','oeuf6.jpg','oeuf7.jpg'] },
+          { title: 'Expérimentations', text: 'Mes expérimentations ont tourné autour de l\'œuf et sa coquille mais surtout du jaune d\'œuf. J\'ai fait des expérimentations plastiques mais aussi avec l\'IA, le rendu est beaucoup plus plat avec de l\'œuf qu\'en IA mais plus réaliste alors j\'ai choisi celui-là pour faire mes recettes.', layout: 'grid', images: ['exp-oeuf.png','exp-oeuf2.png','exp-oeuf3.png','exp-oeuf4.png','exp-oeuf5.png','exp-oeuf6.png','exp-oeuf7.png'] },
+          { title: 'Rendu final', text: '', layout: 'grid', images: ['ba-creme-brulee.png','ba-oeufs-mimosa.png','ba-rendufinal.jpg'] },
+        ],
+        images: [],
+      },
+
+      /* ---- PROJETS D'ALTERNANCE ---- */
+      'mcdo': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: 'McDonald\'s — <em>Croquez le monde</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'McDonald\'s France' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Affiche publicitaire' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        contexte: 'Création d\'une affiche publicitaire pour McDonald\'s dans le cadre de mon alternance chez DDB Paris.',
+        process:  'Exécution graphique, retouche photo, préparation fichiers print.',
+        images: ['scene-plurielle-mockup.jpg'],
+      },
+
+      'picard': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: 'Picard — <em>La Vie en Rose</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'Picard Surgelés' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Packaging & mise en situation' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        contexte: 'Je fais principalement de l\'exécution sur des packagings Picard : vérifier que les côtes, découpes et noir 100% soient en surimpression, vérifier que les bonnes couleurs et Pantone soient appliqués, faire des corrections de textes et/ou de placements de visuels, appliquer les visuels en CMJN pour l\'impression, cleaner le document.',
+        mainImage: 'picard-lavie.png',
+        sections: [
+          { title: 'Visuels', text: '', layout: 'grid', images: ['picard-pack.png','picard-mes.png','picard-mes2.png'] },
+        ],
+        images: [],
+      },
+
+      'execution': {
+        template: 'b',
+        cat: 'Alternance · DDB',
+        title: 'Exécution <em>en tout genre</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Clients',  value: 'McDonald\'s · Puget · Royal Canin' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Affiches publicitaires · Annonce presse' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        desc: 'Lorsqu\'il y a besoin de renfort, je m\'occupe de différents budgets à droite à gauche pour des modifications de texte, de livraisons de livrables, etc.',
+        mainImage: 'couv-exe.jpg',
+        images: ['exe-mcdo.png','exe-puget.png','exe-royalcanin.png'],
+      },
+
+      'pmu-play': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: 'PMU <em>Play</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'PMU' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Déclinaisons de bannières digitales' },
+          { label: 'Outils',   value: 'Illustrator · Indesign' },
+        ],
+        contexte: 'Réalisation d\'une vingtaine de déclinaisons de bannières digitales à partir de 4 Masters pour PMU Play.',
+        process:  'Déclinaisons formats, adaptation des contenus, préparation fichiers livraison.',
+        images: ['cannettes-mockup.jpg'],
+      },
+
+      'belambra': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: '<em>Belambra</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'Belambra Clubs & Hôtels' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Déclinaisons de bannières digitales' },
+          { label: 'Outils',   value: 'Illustrator · Indesign' },
+        ],
+        contexte: 'Opérations comportant 100 à 250 bannières à décliner en fonction des campagnes.',
+        process:  'Déclinaisons massives de formats, adaptation des textes et visuels selon les opérations.',
+        images: ['sf-mockup.jpg'],
+      },
+
+      'puget': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: 'Puget — <em>Sel, poivre</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'Puget' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Affiche publicitaire' },
+          { label: 'Outils',   value: 'Photoshop · Indesign' },
+        ],
+        contexte: 'Création d\'une affiche publicitaire pour Puget dans le cadre de mon alternance chez DDB Paris.',
+        process:  'Exécution graphique, retouche photo, préparation fichiers print.',
+        images: ['cacophtalmie-mockup.jpg','cacophtalmie-mockup.jpg'],
+      },
+
+      'royal-canin': {
+        template: 'a',
+        cat: 'Alternance · DDB',
+        title: 'Royal <em>Canin</em>',
+        year: '2024 — 2026',
+        meta: [
+          { label: 'Client',   value: 'Royal Canin' },
+          { label: 'Agence',   value: 'DDB Paris' },
+          { label: 'Type',     value: 'Annonce presse' },
+          { label: 'Outils',   value: 'Illustrator · Indesign · Photoshop' },
+        ],
+        contexte: 'Exécution d\'une annonce presse pour Royal Canin dans le cadre de différents budgets.',
+        process:  'Modifications texte, livraison livrables, préparation fichiers.',
+        images: ['mockup-vinyle.jpg'],
+      },
+
+      /* ---- ILLUSTRATIONS ---- */
+      'cloud-forest': {
+        template: 'b',
+        cat: 'Illustration',
+        title: 'Cloud <em>Forest</em>',
+        year: '2025',
+        meta: [
+          { label: 'Type',   value: 'Illustration · Packaging' },
+          { label: 'Outils', value: 'Illustrator' },
+        ],
+        desc: 'Création d\'un visuel pour un packaging de café pour Cloud Forest, une marque lilloise avec un pays au choix, ici le Kenya.',
+        mainImage: 'cloud-forest-mockup.jpg',
+        secondImage: 'cloud-forest-mockup2.jpg',
+        images: [],
+      },
+
+      'scenes-plurielles': {
+        template: 'b',
+        cat: 'Illustration',
+        title: 'Scènes <em>Plurielles</em>',
+        year: '2025',
+        meta: [
+          { label: 'Type',   value: 'Affiche · Illustration' },
+          { label: 'Outils', value: 'Illustrator' },
+        ],
+        desc: 'Création d\'une affiche pour l\'évènement "Scènes Plurielles Spectacles".',
+        mainImage: 'scene-plurielle-mockup.jpg',
+        images: ['scenes-plurielles-boite-a-outils.png','scenes-plurielles-affiche.png'],
+      },
+
+      'cuisine-coreenne': {
+        template: 'b',
+        cat: 'Illustration',
+        title: 'Livre de cuisine <em>coréenne</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Illustration · Édition' },
+          { label: 'Outils', value: 'Illustrator · Indesign' },
+        ],
+        desc: 'Création d\'une couverture et double page d\'un livre de cuisine avec 3 thèmes au choix : Corée, Mexique ou Végétarien.',
+        mainImage: 'livre-cuisine-mockup2.jpg',
+        images: ['livre-croquis1.png','livre-croquis2.png','livre-recette-bibim.jpg','livre-recette-ticket.jpg','livre-cuisine-mockup.jpg','livre-cuisine-mockup2.jpg'],
+      },
+
+      'tropicana': {
+        template: 'b',
+        cat: 'Illustration',
+        title: '<em>Tropicana</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Illustration · Packaging' },
+          { label: 'Outils', value: 'Illustrator' },
+        ],
+        desc: 'Création d\'une nouvelle gamme pour des jus en canettes de la marque Tropicana.',
+        mainImage: 'cannettes-mockup.jpg',
+        images: ['tropicana-ananas.jpg','tropicana-fraise-mure.jpg','tropicana-orange.jpg','tropicana-pub.jpg'],
+      },
+
+      'festival-sf': {
+        template: 'b',
+        cat: 'Illustration',
+        title: 'Festival de films <em>Science-Fiction</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Affiche · Illustration' },
+          { label: 'Outils', value: 'Illustrator · Photoshop' },
+        ],
+        desc: 'Création d\'une affiche pour le festival "Les Réalités Parallèles", un festival de science-fiction.',
+        mainImage: 'sf-mockup.jpg',
+        images: ['festival-sf-croquis.png','festival-sf-affichemur.png'],
+      },
+
+      'mille-bornes': {
+        template: 'b',
+        cat: 'Illustration',
+        title: 'L\'addition <em>s\'il vous pla\u00EEt</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Refonte · Illustration' },
+          { label: 'Outils', value: 'Illustrator' },
+        ],
+        desc: 'Refonte graphique du jeu de cartes Mille Bornes.',
+        mainImage: 'mockup-pack-avant.jpg',
+        images: ['mille-bornes-croquis.png','mille-bornes-cartes.png','mille-bornes-cartes-malus.png','mille-bornes-cartes-infini.png','mille-bornes-pack-plat.png','mille-bornes-pack-arriere.png','mille-bornes-pack-avant.png'],
+      },
+
+      /* ---- ÉDITION & TYPOGRAPHIE ---- */
+      'akihabara': {
+        template: 'b',
+        cat: 'Édition & typographie',
+        title: 'Learning from <em>Akihabara</em>',
+        year: '2026',
+        meta: [
+          { label: 'Type',   value: 'Mise en page · Édition' },
+          { label: 'Outils', value: 'Indesign' },
+        ],
+        desc: 'Mise en page d\'un article nommé "Learning from Akihabara".',
+        mainImage: 'learning-from-akihabara-couverture.jpg',
+        secondImage: 'learning-from-akihabara.jpg',
+        images: [],
+      },
+
+      'typo-main': {
+        template: 'b',
+        cat: 'Édition & typographie',
+        title: 'Typographie à la <em>main</em>',
+        year: '2026',
+        meta: [
+          { label: 'Type',   value: 'Typographie · Calligraphie' },
+          { label: 'Outils', value: 'Fait à la main' },
+        ],
+        desc: 'Création d\'une ou plusieurs typographies entièrement réalisées à la main, à partir d\'un thème au choix. En l\'occurrence, j\'ai choisi la poésie et des objets graphiques au choix afin de raconter une histoire : j\'ai choisi de faire 2 affiches et un album photo.',
+        mainImage: 'affiche-souvenirdete.jpg',
+        images: ['typo-exp1.png','typo-exp2.png','typo-texte1.png','typo-texte2.png','typo-affiche.jpg','typo-page1.jpg','typo-page2.jpg'],
+      },
+
+      'lettrage-vinyle': {
+        template: 'b',
+        cat: 'Édition & typographie',
+        title: 'Lettrage sur <em>vinyle</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Lettrage · Typographie' },
+          { label: 'Outils', value: 'Illustrator · Photoshop' },
+        ],
+        desc: 'Lettrage sur un objet graphique au choix : ici une pochette de vinyle.',
+        mainImage: 'lettrage-vinyle.jpg',
+        images: [],
+      },
+
+      /* ---- PROJETS IMPRIMÉS ---- */
+      'cacoftalmie': {
+        template: 'b',
+        cat: 'Projets imprimés',
+        title: 'Cacoph­<em>talmie</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Affiche · Impression' },
+          { label: 'Outils', value: 'Illustrator · Indesign' },
+        ],
+        desc: 'Création d\'une affiche avec un thème parmi différents choix : ici Cacoph­talmie, la cacophonie visuelle. Inspirée de l\'univers de l\'aéroport.',
+        mainImage: 'cacophtalmie-mockup.jpg',
+        images: [],
+      },
+
+      'pochette-vinyle': {
+        template: 'b',
+        cat: 'Projets imprimés',
+        title: 'Pochette de <em>vinyle</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Imprimé · Design éditorial' },
+          { label: 'Outils', value: 'Illustrator · Photoshop' },
+        ],
+        desc: 'Création d\'une pochette de vinyle avec un artiste au choix : L\'étrange histoire de Mr Anderson de Laylow.',
+        mainImage: 'mockup-vinyle.jpg',
+        images: [],
+      },
+
+      'faire-affiche': {
+        template: 'b',
+        cat: 'Projets imprimés',
+        title: 'Faire une <em>affiche</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Affiche contestataire' },
+          { label: 'Outils', value: 'Illustrator' },
+        ],
+        desc: 'Création d\'une affiche commerciale, contestataire ou publicitaire. Ici une affiche contestataire : "Quand les bombes parlent, l\'humanité reste silencieuse."',
+        mainImage: 'faire-une-affiche-mockup.jpg',
+        images: [],
+      },
+
+      'fanzine': {
+        template: 'b',
+        cat: 'Projets imprimés',
+        title: 'Fanzine de <em>collection</em>',
+        year: '2024',
+        meta: [
+          { label: 'Type',   value: 'Édition · Fanzine' },
+          { label: 'Outils', value: 'Indesign · Illustrator' },
+        ],
+        desc: 'Création d\'un fanzine de collection sur mes souvenirs amoureux préférés, construit sous forme d\'enveloppe/lettre d\'amour.',
+        mainImage: 'print-fanzine.jpg',
+        images: [],
+      },
+
+    };
+
+    /* ================================================
+       AFFICHER UN PROJET
+    ================================================ */
+    function showDetail(id) {
+      const data = projetsData[id];
+      if (!data) return;
+
+      if (data.template === 'a') {
+        /* --- Template A : riche --- */
+        document.getElementById('detail-cat').textContent   = data.cat;
+        document.getElementById('detail-title').innerHTML   = data.title;
+        document.getElementById('detail-year').textContent  = data.year;
+
+        // Traduction méta template A
+        const pt3 = projectTranslations[id];
+        const metaData = (currentLang === 'en' && pt3 && pt3.meta_en)
+          ? pt3.meta_en
+          : data.meta;
+
+        const metaEl = document.getElementById('detail-meta');
+        metaEl.innerHTML = metaData.map(function(m) {
+          return '<div><div class="meta-label">' + m.label + '</div><div class="meta-value">' + m.value + '</div></div>';
+        }).join('');
+
+        // Cat traduite
+        const catElA = document.getElementById('detail-cat');
+        catElA.textContent = (currentLang === 'en' && pt3 && pt3.cat_en) ? pt3.cat_en : data.cat;
+
+        /* Textes contexte & sections */
+        const bodyEl = document.getElementById('detail-body');
+
+        // Image principale
+        const mainVisual = document.getElementById('detail-main');
+        if (data.mainImage) {
+          mainVisual.innerHTML = `<img src="images/${data.mainImage}" alt="${data.cat}" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;" onclick="openLightbox('images/${data.mainImage}')" />`;
+        } else {
+          mainVisual.innerHTML = '<div class="detail-visual-placeholder">↑ visuel principal</div>';
+        }
+
+        // Contexte (traduit si EN)
+        const contexteText = (currentLang === 'en' && pt3 && pt3.contexte_en) ? pt3.contexte_en : data.contexte;
+        const contextLabel = currentLang === 'en' ? 'Context' : 'Contexte';
+
+        let bodyHTML = `<div class="detail-section-title">${contextLabel}</div>
+          <p class="detail-text">${contexteText}</p>`;
+        if (data.sections && data.sections.length) {
+          data.sections.forEach(section => {
+            bodyHTML += `<div class="detail-divider"></div>
+              <div class="detail-section-title">${section.title}</div>`;
+            if (section.text) {
+              // Chercher une traduction EN pour ce texte de section
+              let sectionText = section.text;
+              if (currentLang === 'en' && pt3) {
+                if (section.title === 'Expérimentations' && pt3.exp_text_en) sectionText = pt3.exp_text_en;
+                if (section.title === 'Recherches documentaires' && pt3.recherches_en) sectionText = pt3.recherches_en;
+                if (section.title === 'Charte graphique' && pt3.charte_text_en) sectionText = pt3.charte_text_en;
+              }
+              bodyHTML += `<p class="detail-text">${sectionText.replace(/\n\n/g, '</p><p class="detail-text" style="margin-top:-24px;">')}</p>`;
+            }
+
+            if ((section.layout === 'mockups' || section.layout === 'mockups-labeled') && section.mockups) {
+              // Grille mockups avec ratios personnalisés
+              bodyHTML += `<div class="mockup-grid">`;
+              section.mockups.forEach(m => {
+                const labelHTML = (section.layout === 'mockups-labeled' && m.label)
+                  ? `<div style="font-size:10px;font-weight:300;letter-spacing:0.1em;text-transform:uppercase;opacity:0.4;padding:6px 0 2px;">${m.label}</div>`
+                  : '';
+                const spanStyle = m.featured ? 'grid-column: span 2;' : '';
+                bodyHTML += `<div style="display:flex;flex-direction:column;${spanStyle}">
+                  ${labelHTML}
+                  <div class="mockup-item" style="aspect-ratio:${m.ratio};" onclick="openLightbox('images/${m.file}')"><img src="images/${m.file}" alt="${m.label || section.title}" /></div>
+                </div>`;
+              });
+              bodyHTML += `</div>`;
+            } else if (section.layout === 'horizontal' && section.images) {
+              // Image pleine largeur
+              bodyHTML += `<div style="margin-bottom:32px;">`;
+              section.images.forEach(img => {
+                bodyHTML += `<div class="detail-img" style="height:280px;margin-bottom:12px;" onclick="openLightbox('images/${img}')"><img src="images/${img}" alt="${section.title}" /></div>`;
+              });
+              bodyHTML += `</div>`;
+            } else if (section.layout === 'vertical-2' && section.images) {
+              // 2 colonnes verticales
+              bodyHTML += `<div class="detail-grid" style="grid-template-columns:1fr 1fr;margin-bottom:32px;">`;
+              section.images.forEach(img => {
+                bodyHTML += `<div class="detail-img" style="height:360px;" onclick="openLightbox('images/${img}')"><img src="images/${img}" alt="${section.title}" /></div>`;
+              });
+              bodyHTML += `</div>`;
+            } else if (section.images && section.images.length) {
+              const cols = section.images.length <= 3 ? section.images.length : 3;
+              bodyHTML += `<div class="detail-grid" style="grid-template-columns: repeat(${cols}, 1fr); margin-bottom: 32px;">`;
+              section.images.forEach(img => {
+                bodyHTML += `<div class="detail-img" onclick="openLightbox('images/${img}')"><img src="images/${img}" alt="${section.title}" /></div>`;
+              });
+              bodyHTML += `</div>`;
+            }
+          });
+        } else if (data.process) {
+          bodyHTML += `<div class="detail-divider"></div>
+            <div class="detail-section-title">Process</div>
+            <p class="detail-text">${data.process}</p>`;
+          if (data.images && data.images.length) {
+            const cols = data.images.length <= 3 ? data.images.length : 3;
+            bodyHTML += `<div class="detail-grid" style="grid-template-columns: repeat(${cols}, 1fr);">`;
+            data.images.forEach(img => {
+              bodyHTML += `<div class="detail-img"><img src="images/${img}" alt="${data.cat}" /></div>`;
+            });
+            bodyHTML += `</div>`;
+          }
+        }
+
+        bodyEl.innerHTML = bodyHTML;
+
+        // Traduire si EN
+        if (currentLang === 'en') {
+          const pt2 = projectTranslations[id];
+          if (pt2) {
+            bodyEl.querySelectorAll('.detail-section-title').forEach(el => {
+              const map2 = pt2.sections_en || {};
+              const mapped = map2[el.textContent.trim()];
+              if (mapped) el.textContent = mapped;
+            });
+          }
+        }
+
+        show('detail');
+
+      } else {
+        /* --- Template B : simple --- */
+        document.getElementById('detail-b-cat').textContent   = data.cat;
+        document.getElementById('detail-b-title').innerHTML   = data.title;
+        document.getElementById('detail-b-year').textContent  = data.year;
+        const pt = projectTranslations[id];
+        if (currentLang === 'en' && pt && pt.desc_en) {
+          document.getElementById('detail-b-desc').textContent = pt.desc_en;
+        } else {
+          document.getElementById('detail-b-desc').textContent = data.desc;
+        }
+        // Cat en EN
+        const catEl = document.getElementById('detail-b-cat');
+        if (currentLang === 'en' && pt && pt.cat_en) {
+          catEl.textContent = pt.cat_en;
+        }
+        // Meta en EN
+        if (currentLang === 'en' && pt && pt.meta_en) {
+          const metaElB = document.getElementById('detail-b-meta');
+          metaElB.innerHTML = pt.meta_en.map(function(m) {
+            return '<div><div class="meta-label">' + m.label + '</div><div class="meta-value">' + m.value + '</div></div>';
+          }).join('');
+        } else {
+          const metaEl = document.getElementById('detail-b-meta');
+          metaEl.innerHTML = data.meta.map(m =>
+            `<div><div class="meta-label">${m.label}</div><div class="meta-value">${m.value}</div></div>`
+          ).join('');
+        }
+
+        // Vider d'abord pour éviter les résidus du projet précédent
+        document.getElementById('detail-b-main').innerHTML = '';
+        document.getElementById('detail-b-grid').innerHTML = '';
+
+        show('detail-b');
+
+        // Image principale cliquable pour lightbox
+        const mainVisualB = document.getElementById('detail-b-main');
+        if (data.mainImage && data.secondImage) {
+          mainVisualB.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;height:100%;"><img src="images/${data.mainImage}" alt="${data.cat}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;cursor:zoom-in;" onclick="openLightbox('images/${data.mainImage}')" /><img src="images/${data.secondImage}" alt="${data.cat}" style="width:100%;height:100%;object-fit:cover;border-radius:8px;cursor:zoom-in;" onclick="openLightbox('images/${data.secondImage}')" /></div>`;
+        } else if (data.mainImage) {
+          mainVisualB.innerHTML = `<img src="images/${data.mainImage}" alt="${data.cat}" style="width:100%;height:100%;object-fit:${data.mainImageFit || 'cover'};cursor:zoom-in;" onclick="openLightbox('images/${data.mainImage}')" />`;
+        } else {
+          mainVisualB.innerHTML = '<div class="detail-visual-placeholder">↑ visuel principal</div>';
+        }
+
+        // Grille images
+        const gridB = document.getElementById('detail-b-grid');
+        if (data.images && data.images.length) {
+          const cols = data.images.length <= 3 ? data.images.length : 3;
+          gridB.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+          gridB.innerHTML = data.images.map(img =>
+            `<div class="detail-img" onclick="openLightbox('images/${img}')"><img src="images/${img}" alt="${data.cat}" /></div>`
+          ).join('');
+        } else {
+          gridB.innerHTML = '';
+        }
+      }
+    }
+
+    /* Init */
+    show('home');
+  </script>
+
+</body>
+</html>
